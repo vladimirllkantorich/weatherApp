@@ -1,10 +1,8 @@
 import streamlit as st
-from request import to_city_dt
 import pandas as pd
 import plotly.graph_objects as go
 
-
-
+from request import to_city_dt
 
 
 def ShowWeatherFive(data: dict, points: int = 40) -> None:
@@ -23,6 +21,9 @@ def ShowWeatherFive(data: dict, points: int = 40) -> None:
         t = main.get("temp")
         f = main.get("feels_like")
         w = wind.get("speed")
+
+        if ts is None or t is None or f is None or w is None:
+            continue
 
         rows.append({"dt": to_city_dt(ts, tz_shift), "temp": float(t), "feels": float(f), "wind": float(w)})
 
